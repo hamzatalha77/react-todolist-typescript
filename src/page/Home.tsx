@@ -19,6 +19,13 @@ const Home = () => {
     setDeadline(0)
     console.log(todoList)
   }
+  const deleteTask = (taskNameToDelete: string): void => {
+    setTodoList(
+      todoList.filter((task) => {
+        return task.taskName != taskNameToDelete
+      })
+    )
+  }
   return (
     <div className="h-screen w-full bg-[#FFF0F5]">
       <div className="header">
@@ -41,7 +48,9 @@ const Home = () => {
         <button onClick={addTask}>Add Task</button>
       </div>
       <div className="todolist">
-        <TodoTask />
+        {todoList.map((task: ITask, key: number) => {
+          return <TodoTask key={key} task={task} deleteTask={deleteTask} />
+        })}
       </div>
     </div>
   )
